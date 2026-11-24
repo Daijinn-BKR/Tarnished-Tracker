@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="es"><meta charset="utf-8"><title>Elden Ring — Colección</title>
+<p id="estado">Cargando…</p>
+<script>
+window.__TAURI__.core.invoke('listar_items')
+  .then(v => estado.textContent = v.length + ' objetos')
+  .catch(e => estado.textContent = 'Error: ' + e);
+</script>
+</html>

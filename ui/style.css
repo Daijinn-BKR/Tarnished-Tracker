@@ -1,0 +1,97 @@
+:root {
+  --fondo: #0d0c0a;
+  --panel: #16140f;
+  --borde: #3a3222;
+  --texto: #e8e0cc;
+  --tenue: #a39a85;
+  --oro: #c9a85a;
+  --oro-claro: #e6c97a;
+  --farmear: #e6d34a;
+  --ng: #a58fd0;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr 380px;
+  background: radial-gradient(ellipse at top, #1c1912 0%, var(--fondo) 60%);
+  color: var(--texto);
+  font: 15px/1.45 system-ui, sans-serif;
+}
+
+h1, h2 {
+  font-family: "Cinzel", "Trajan Pro", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: var(--oro-claro);
+}
+h1 { font-size: 1.4rem; margin: 1rem 1rem .5rem; }
+h2 { font-size: 1.2rem; margin: .5rem 0 .75rem; border-bottom: 1px solid var(--borde); padding-bottom: .4rem; }
+
+button, input, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--oro-claro); outline-offset: 2px; }
+
+/* Lateral */
+.lateral { background: var(--panel); border-right: 1px solid var(--borde); overflow-y: auto; }
+.pestanas { display: flex; gap: .25rem; margin: 0 1rem .5rem; }
+.pestanas button, .segmentado button {
+  flex: 1; background: none; border: 1px solid var(--borde); padding: .3rem .6rem; cursor: pointer; color: var(--tenue);
+}
+.pestanas [aria-selected="true"], .segmentado [aria-pressed="true"] { color: var(--fondo); background: var(--oro); border-color: var(--oro); }
+
+#arbol details { margin: 0 .5rem; }
+#arbol summary { padding: .35rem .5rem; cursor: pointer; color: var(--oro); font-family: Georgia, serif; }
+#arbol .nodo {
+  display: flex; justify-content: space-between; width: 100%;
+  background: none; border: 0; padding: .3rem .5rem .3rem 1.4rem; cursor: pointer; text-align: left; color: var(--texto);
+}
+#arbol .nodo:hover { background: #221e15; }
+#arbol .nodo[aria-current="true"] { background: #2b2518; color: var(--oro-claro); }
+.cuenta { color: var(--tenue); font-variant-numeric: tabular-nums; font-size: .85em; }
+.completa { color: var(--oro); }
+
+/* Centro */
+main { overflow-y: auto; padding: 1rem 1.25rem; }
+.filtros { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-bottom: .5rem; }
+.segmentado { display: flex; }
+.marca { display: flex; gap: .3rem; align-items: center; color: var(--tenue); }
+#buscar { flex: 1; min-width: 12rem; background: var(--panel); border: 1px solid var(--borde); padding: .35rem .6rem; }
+
+#lista { list-style: none; margin: 0; padding: 0; }
+#lista li { display: flex; align-items: center; gap: .5rem; border-bottom: 1px solid #221e15; }
+#lista li.activo { background: #221e15; }
+#lista .abrir {
+  flex: 1; display: flex; align-items: center; gap: .6rem; background: none; border: 0; padding: .35rem 0; cursor: pointer; text-align: left;
+}
+#lista img, #lista .hueco { width: 40px; height: 40px; object-fit: contain; flex: none; }
+#lista .hueco { border: 1px dashed var(--borde); }
+#lista .conseguido .nombre { color: var(--tenue); }
+.grupo { color: var(--tenue); font-size: .8em; }
+.etiqueta { font-size: .75em; padding: 0 .4em; border: 1px solid currentColor; border-radius: 3px; }
+.etiqueta.farmear { color: var(--farmear); }
+.etiqueta.ng { color: var(--ng); }
+input[type="checkbox"] { accent-color: var(--oro); width: 1.05rem; height: 1.05rem; }
+#error { color: #ff8a7a; }
+
+/* Ficha */
+.ficha { background: var(--panel); border-left: 1px solid var(--borde); padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: .75rem; }
+.ficha[hidden] { display: none; }
+.foto {
+  aspect-ratio: 1; display: grid; place-items: center; border: 1px solid var(--borde);
+  background: radial-gradient(circle, #241f15, #0d0c0a);
+}
+.foto img { max-width: 90%; max-height: 90%; }
+#f-sinfoto { color: var(--tenue); }
+.campo { display: flex; flex-direction: column; gap: .25rem; color: var(--tenue); font-size: .9em; }
+.campo input, .campo textarea, #f-fecha { background: var(--fondo); border: 1px solid var(--borde); padding: .4rem; color: var(--texto); font-size: 1rem; }
+#f-nombre { font-family: Georgia, serif; font-size: 1.15rem; color: var(--oro-claro); }
+.lugar { margin: 0; color: var(--tenue); font-size: .9em; }
+.fila { display: flex; gap: 1rem; align-items: center; }
+.fila label { display: flex; gap: .35rem; align-items: center; }
+.boton { align-self: flex-start; border: 1px solid var(--oro); color: var(--oro); padding: .35rem .8rem; cursor: pointer; }
+.boton:focus-within { outline: 2px solid var(--oro-claro); }
+.boton input { position: absolute; opacity: 0; width: 1px; height: 1px; }
