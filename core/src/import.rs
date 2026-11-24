@@ -113,3 +113,25 @@ pub fn parsear_region(texto: &str, zona: &str, region: &str) -> Vec<Item> {
     }
     items
 }
+
+/// Recorre `Regiones/<zona>/<region>.md` en orden alfabético (zona, luego región).
+pub fn importar_vault(vault: &std::path::Path) -> std::io::Result<Vec<Item>> {
+    let mut items = Vec::new();
+    let mut zonas: Vec<_> = std::fs::read_dir(vault.join("Regiones"))?
+        .collect::<Result<Vec<_>, _>>()?
+        .into_iter().map(|e| e.path()).filter(|p| p.is_dir()).collect();
+    zonas.sort();
+    for z in zonas {
+        let zona = z.file_name().unwrap().to_string_lossy().to_string();
+        let mut notas: Vec<_> = std::fs::read_dir(&z)?
+            .collect::<Result<Vec<_>, _>>()?
+            .into_iter().map(|e| e.path())
+            .filter(|p| p.extension().is_some_and(|e| e == "md")).collect();
+        notas.sort();
+        for n in notas {
+            let region = n.file_stem().unwrap().to_string_lossy().to_string();
+            items.extend(parsear_region(&std::fs::read_to_string(&n)?, &zona, &region));
+        }
+    }
+    Ok(items)
+}
