@@ -11,7 +11,7 @@
   color-scheme: dark;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; scrollbar-color: var(--borde) transparent; }
 
 body {
   margin: 0;

@@ -1,9 +1,54 @@
 <!doctype html>
-<html lang="es"><meta charset="utf-8"><title>Elden Ring — Colección</title>
-<p id="estado">Cargando…</p>
-<script>
-window.__TAURI__.core.invoke('listar_items')
-  .then(v => estado.textContent = v.length + ' objetos')
-  .catch(e => estado.textContent = 'Error: ' + e);
-</script>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Elden Ring — Colección</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="lateral">
+    <h1>Colección</h1>
+    <div class="pestanas" role="tablist">
+      <button role="tab" id="tab-regiones" aria-selected="true">Regiones</button>
+      <button role="tab" id="tab-categorias" aria-selected="false">Categorías</button>
+    </div>
+    <nav id="arbol" aria-label="Navegación"></nav>
+  </aside>
+
+  <main>
+    <div class="filtros">
+      <div class="segmentado" role="group" aria-label="Estado">
+        <button data-estado="pendientes" aria-pressed="false">Pendientes</button>
+        <button data-estado="conseguidos" aria-pressed="false">Conseguidos</button>
+        <button data-estado="todos" aria-pressed="true">Todos</button>
+      </div>
+      <label class="marca"><input type="checkbox" id="f-farmear"> Farmear</label>
+      <label class="marca"><input type="checkbox" id="f-ng"> NG+</label>
+      <input type="search" id="buscar" placeholder="Buscar en todo…" aria-label="Buscar">
+    </div>
+    <h2 id="titulo"></h2>
+    <p id="error" role="alert" hidden></p>
+    <ul id="lista"></ul>
+  </main>
+
+  <section id="ficha" class="ficha" aria-label="Ficha del objeto" hidden>
+    <div class="foto"><img id="f-img" alt=""><span id="f-sinfoto">Sin foto</span></div>
+    <label class="campo">Nombre <input id="f-nombre"></label>
+    <p id="f-lugar" class="lugar"></p>
+    <div class="fila">
+      <label><input type="checkbox" id="f-conseguido"> Conseguido</label>
+      <input type="date" id="f-fecha" aria-label="Fecha en que se consiguió">
+    </div>
+    <div class="fila">
+      <label><input type="checkbox" id="f-m-farmear"> Farmear</label>
+      <label><input type="checkbox" id="f-m-ng"> NG+</label>
+    </div>
+    <label class="campo">Descripción <span id="f-ingles" class="etiqueta" hidden>inglés</span>
+      <textarea id="f-desc" rows="8"></textarea></label>
+    <label class="boton">Cambiar foto
+      <input type="file" id="f-archivo" accept="image/png,image/jpeg,image/webp"></label>
+  </section>
+
+  <script src="app.js"></script>
+</body>
 </html>
