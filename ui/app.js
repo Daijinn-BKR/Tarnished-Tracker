@@ -148,6 +148,11 @@ function pintarLista() {
 
 const actual = () => st.items.find((i) => i.id === st.actual);
 
+// No pisar lo que se está escribiendo al repintar (p.ej. al volver a la ventana).
+function poner(id, valor) {
+  if (document.activeElement !== $(id)) $(id).value = valor;
+}
+
 function pintarFicha() {
   const it = actual();
   $('ficha').hidden = !it;
@@ -157,14 +162,14 @@ function pintarFicha() {
   if (src) $('f-img').src = src;
   $('f-img').alt = it.nombre;
   $('f-sinfoto').hidden = !!src;
-  $('f-nombre').value = it.nombre;
+  poner('f-nombre', it.nombre);
   $('f-lugar').textContent = `${it.region} · ${it.categoria}${it.subcategoria ? ' › ' + it.subcategoria : ''}`;
   $('f-conseguido').checked = it.conseguido;
-  $('f-fecha').value = it.conseguido_en ?? '';
+  poner('f-fecha', it.conseguido_en ?? '');
   $('f-fecha').disabled = !it.conseguido;
   $('f-m-farmear').checked = it.farmear;
   $('f-m-ng').checked = it.ng_plus;
-  $('f-desc').value = it.descripcion;
+  poner('f-desc', it.descripcion);
   $('f-ingles').hidden = it.descripcion_origen !== 'wiki_en';
 }
 
